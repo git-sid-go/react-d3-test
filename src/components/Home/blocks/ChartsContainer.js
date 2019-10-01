@@ -1,23 +1,31 @@
 import React from "react";
 import AreaChart from "../charts/AreaChart";
+import moment from "moment";
+import { StyledChartsContainer } from "../../../styled_components/StyledCharts";
 
 function ChartsContainer() {
-  const [data, setData] = React.useState({});
+  const [data, setData] = React.useState([]);
   React.useEffect(() => {
-    console.log(`${process.env.PUBLIC_URL}weather.json`);
-    Promise.all([fetch(`${process.env.PUBLIC_URL}/weather_1.json`)])
-      .then(responses => Promise.all(responses.map(resp => resp.json())))
-      .then(([daily]) => {
-        daily.forEach(day => (day.date = new Date(day.date)));
-        let remoteData = { daily };
-        console.log(remoteData);
-        setData(remoteData);
+    let daily = [];
+
+    for (var i = 1; i <= moment.duration(4, "weeks").days(); i++) {
+      daily.push({
+        date: moment().subtract(i + 1, "d"),
+        sales: Math.floor(Math.random() * (6000 - 0 + 1)) + 0
       });
+    }
+
+    // console.log(moment.duration(4, "weeks").days());
+    console.log(daily);
+    setData(daily);
   }, []);
   return (
-    <div>
-      <AreaChart data={data.daily} />
-    </div>
+    <StyledChartsContainer>
+      <AreaChart data={data} />
+      <AreaChart data={data} />
+      <AreaChart data={data} />
+      <AreaChart data={data} />
+    </StyledChartsContainer>
   );
 }
 

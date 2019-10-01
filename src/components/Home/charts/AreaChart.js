@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
 
-const width = 650;
-const height = 400;
+const width = 510;
+const height = 250;
 const margin = { top: 20, right: 5, bottom: 20, left: 35 };
 
 class AreaChart extends Component {
@@ -34,13 +34,13 @@ class AreaChart extends Component {
     // data has changed, so recalculate scale domains
     console.log(data, data.length);
     const timeDomain = d3.extent(data, d => d.date);
-    const valueMax = d3.max(data, d => d.high);
+    const valueMax = d3.max(data, d => d.sales);
     xScale.domain(timeDomain);
     yScale.domain([0, valueMax]);
 
     areaGenerator.x(d => xScale(d.date));
     areaGenerator.y0(yScale(0));
-    areaGenerator.y1(d => yScale(d.high));
+    areaGenerator.y1(d => yScale(d.sales));
     const line = areaGenerator(data);
 
     return { line };
