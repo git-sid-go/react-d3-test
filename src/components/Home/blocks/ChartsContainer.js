@@ -8,7 +8,7 @@ function ChartsContainer() {
   React.useEffect(() => {
     let daily = [];
 
-    for (var i = 1; i <= moment.duration(4, "weeks").days(); i++) {
+    for (var i = 1; i <= moment.duration(2, "months").asDays(); i++) {
       daily.push({
         date: moment().subtract(i + 1, "d"),
         sales: Math.floor(Math.random() * (6000 - 0 + 1)) + 0

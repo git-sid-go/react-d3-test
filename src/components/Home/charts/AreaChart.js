@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
+import { StyledChartWrapper } from "../../../styled_components/StyledCharts";
 
 const width = 510;
-const height = 250;
+const height = 270;
 const margin = { top: 20, right: 5, bottom: 20, left: 35 };
 
 class AreaChart extends Component {
@@ -16,11 +17,13 @@ class AreaChart extends Component {
   xAxis = d3
     .axisBottom()
     .scale(this.state.xScale)
-    .tickFormat(d3.timeFormat("%B %d"));
+    .ticks(5)
+    .tickFormat(d3.timeFormat("%b %d"));
 
   yAxis = d3
     .axisLeft()
     .scale(this.state.yScale)
+    .ticks(5)
     .tickFormat((d, i) => {
       console.log(d);
       return `$${d}`;
@@ -53,21 +56,23 @@ class AreaChart extends Component {
 
   render() {
     return (
-      <svg width={width} height={height}>
-        <path
-          d={this.state.line}
-          fill={"#F8E2CC"}
-          stroke={"#E0A36F"}
-          strokeWidth="2"
-        />
-        <g>
-          <g
-            ref="xAxis"
-            transform={`translate(0, ${height - margin.bottom})`}
+      <StyledChartWrapper>
+        <svg width={width} height={height}>
+          <path
+            d={this.state.line}
+            fill={"#F8E2CC"}
+            stroke={"#E0A36F"}
+            strokeWidth="2"
           />
-          <g ref="yAxis" transform={`translate(${margin.left}, 0)`} />
-        </g>
-      </svg>
+          <g>
+            <g
+              ref="xAxis"
+              transform={`translate(-5, ${height - margin.bottom})`}
+            />
+            <g ref="yAxis" transform={`translate(${margin.left}, 0)`} />
+          </g>
+        </svg>
+      </StyledChartWrapper>
     );
   }
 }
