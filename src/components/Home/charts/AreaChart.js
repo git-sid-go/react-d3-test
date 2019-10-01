@@ -26,24 +26,24 @@ class AreaChart extends Component {
     .ticks(5)
     .tickFormat((d, i) => {
       console.log(d);
-      return `$${d}`;
+      return `${d}`;
     });
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!nextProps.data) return null; // data hasn't been loaded yet so do nothing
-    const { data } = nextProps;
+    const { data, chart } = nextProps;
     const { xScale, yScale, areaGenerator } = prevState;
 
     // data has changed, so recalculate scale domains
     console.log(data, data.length);
     const timeDomain = d3.extent(data, d => d.date);
-    const valueMax = d3.max(data, d => d.sales);
+    const valueMax = d3.max(data, d => d[chart]);
     xScale.domain(timeDomain);
     yScale.domain([0, valueMax]);
 
     areaGenerator.x(d => xScale(d.date));
     areaGenerator.y0(yScale(0));
-    areaGenerator.y1(d => yScale(d.sales));
+    areaGenerator.y1(d => yScale(d[chart]));
     const line = areaGenerator(data);
 
     return { line };

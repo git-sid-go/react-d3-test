@@ -3,6 +3,7 @@ import AreaChart from "../charts/AreaChart";
 import moment from "moment";
 import { StyledChartsContainer } from "../../../styled_components/StyledCharts";
 import { BtnTab, TabsContainer } from "../../../styled_components/StyledCommon";
+import { RANGE_CONFIG } from "../../../config/config";
 
 function ChartsContainer() {
   const [currentTab, setCurrentTab] = React.useState("daily");
@@ -12,7 +13,32 @@ function ChartsContainer() {
     for (var i = 1; i <= moment.duration(2, "months").asDays(); i++) {
       daily.push({
         date: moment().subtract(i + 1, "d"),
-        sales: Math.floor(Math.random() * (6000 - 0 + 1)) + 0
+        sales:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.daily.sales.max - RANGE_CONFIG.daily.sales.min + 1)
+          ) + RANGE_CONFIG.daily.sales.min,
+        new_sales:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.daily.new_sales.max -
+                RANGE_CONFIG.daily.new_sales.min +
+                1)
+          ) + RANGE_CONFIG.daily.new_sales.min,
+        payments:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.daily.payments.max -
+                RANGE_CONFIG.daily.payments.min +
+                1)
+          ) + RANGE_CONFIG.daily.payments.min,
+        refunds:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.daily.refunds.max -
+                RANGE_CONFIG.daily.refunds.min +
+                1)
+          ) + RANGE_CONFIG.daily.refunds.min
       });
     }
     setData({
@@ -48,10 +74,10 @@ function ChartsContainer() {
         </BtnTab>
       </TabsContainer>
       <StyledChartsContainer>
-        <AreaChart data={data.daily} />
-        <AreaChart data={data.daily} />
-        <AreaChart data={data.daily} />
-        <AreaChart data={data.daily} />
+        <AreaChart chart="sales" data={data.daily} />
+        <AreaChart chart="new_sales" data={data.daily} />
+        <AreaChart chart="payments" data={data.daily} />
+        <AreaChart chart="refunds" data={data.daily} />
       </StyledChartsContainer>
     </div>
   );
