@@ -55,6 +55,17 @@ export const BtnTab = styled(props => (
   border-radius: 0;
   font-size: 12px;
   padding: 5px 12px;
+  &:hover {
+    background-color: ${colors.$purpleLight};
+    opacity: 0.8;
+    color: ${colors.$primaryWhite};
+  }
+  ${props =>
+    props.selected &&
+    css`
+      background-color: ${colors.$purpleLight};
+      color: ${colors.$primaryWhite};
+    `}
 `;
 
 export const StyledAppLogo = styled.div`

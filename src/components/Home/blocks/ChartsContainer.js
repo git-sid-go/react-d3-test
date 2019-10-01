@@ -22,10 +22,30 @@ function ChartsContainer() {
   return (
     <div>
       <TabsContainer>
-        <BtnTab>Daily</BtnTab>
-        <BtnTab>3 Months</BtnTab>
-        <BtnTab>6 Months</BtnTab>
-        <BtnTab>12 Months</BtnTab>
+        <BtnTab
+          onClick={() => setCurrentTab("daily")}
+          selected={currentTab == "daily"}
+        >
+          Daily
+        </BtnTab>
+        <BtnTab
+          onClick={() => setCurrentTab("3 months")}
+          selected={currentTab == "3 months"}
+        >
+          3 Months
+        </BtnTab>
+        <BtnTab
+          onClick={() => setCurrentTab("6 months")}
+          selected={currentTab == "6 months"}
+        >
+          6 Months
+        </BtnTab>
+        <BtnTab
+          onClick={() => setCurrentTab("12 months")}
+          selected={currentTab == "12 months"}
+        >
+          12 Months
+        </BtnTab>
       </TabsContainer>
       <StyledChartsContainer>
         <AreaChart data={data.daily} />
