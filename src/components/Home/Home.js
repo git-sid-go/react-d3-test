@@ -5,17 +5,15 @@ import {
   MainContent
 } from "../../styled_components/StyledCommon";
 import StatsBar from "./blocks/StatsBar";
-import SalesGraph from "./graphs/SalesGraph";
+import ChartsContainer from "./blocks/ChartsContainer";
 
 function Home() {
   return (
     <FlexWithSideNav>
-      {/* <SideNav /> */}
+      <SideNav />
       <MainContent>
-        {/* <StatsBar /> */}
-        <div>
-          <SalesGraph />
-        </div>
+        <StatsBar />
+        <ChartsContainer />
       </MainContent>
     </FlexWithSideNav>
   );
