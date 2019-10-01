@@ -2,30 +2,38 @@ import React from "react";
 import AreaChart from "../charts/AreaChart";
 import moment from "moment";
 import { StyledChartsContainer } from "../../../styled_components/StyledCharts";
+import { BtnTab, TabsContainer } from "../../../styled_components/StyledCommon";
 
 function ChartsContainer() {
-  const [data, setData] = React.useState([]);
+  const [currentTab, setCurrentTab] = React.useState("daily");
+  const [data, setData] = React.useState({});
   React.useEffect(() => {
     let daily = [];
-
     for (var i = 1; i <= moment.duration(2, "months").asDays(); i++) {
       daily.push({
         date: moment().subtract(i + 1, "d"),
         sales: Math.floor(Math.random() * (6000 - 0 + 1)) + 0
       });
     }
-
-    // console.log(moment.duration(4, "weeks").days());
-    console.log(daily);
-    setData(daily);
+    setData({
+      daily
+    });
   }, []);
   return (
-    <StyledChartsContainer>
-      <AreaChart data={data} />
-      <AreaChart data={data} />
-      <AreaChart data={data} />
-      <AreaChart data={data} />
-    </StyledChartsContainer>
+    <div>
+      <TabsContainer>
+        <BtnTab>Daily</BtnTab>
+        <BtnTab>3 Months</BtnTab>
+        <BtnTab>6 Months</BtnTab>
+        <BtnTab>12 Months</BtnTab>
+      </TabsContainer>
+      <StyledChartsContainer>
+        <AreaChart data={data.daily} />
+        <AreaChart data={data.daily} />
+        <AreaChart data={data.daily} />
+        <AreaChart data={data.daily} />
+      </StyledChartsContainer>
+    </div>
   );
 }
 

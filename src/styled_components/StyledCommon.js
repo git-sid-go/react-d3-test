@@ -29,6 +29,34 @@ export const BtnPrimary = styled(props => (
   letter-spacing: 1px;
 `;
 
+export const TabsContainer = styled.div`
+  border-radius: 4px;
+  border: 1px solid ${colors.$primaryBorder};
+  margin: 30px 0 25px;
+  display: inline-flex;
+  button {
+    border-right: 1px solid ${colors.$primaryBorder};
+    &:first-child {
+      border-radius: 4px 0 0 4px;
+    }
+    &:last-child {
+      border-radius: 0 4px 4px 0;
+      border-right: none;
+    }
+  }
+`;
+
+export const BtnTab = styled(props => (
+  <Button variant="contained" classes={{ root: "root" }} {...props} />
+))`
+  background-color: ${colors.$primaryWhite};
+  box-shadow: none;
+  text-transform: none;
+  border-radius: 0;
+  font-size: 12px;
+  padding: 5px 12px;
+`;
+
 export const StyledAppLogo = styled.div`
   margin-right: 15px;
   img {
