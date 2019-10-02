@@ -4,12 +4,12 @@ import { StyledChartWrapper } from "../../../styled_components/StyledCharts";
 import colors from "../../../assets/js/colors";
 
 const width = 510;
-const height = 270;
+const height = 210;
 const margin = { top: 20, right: 5, bottom: 20, left: 35 };
 
 class AreaChart extends Component {
   state = {
-    line: null,
+    area: null,
     xScale: d3.scaleTime().range([margin.left, width - margin.right]),
     yScale: d3.scaleLinear().range([height - margin.bottom, margin.top]),
     areaGenerator: d3.area()
@@ -41,9 +41,9 @@ class AreaChart extends Component {
     areaGenerator.x(d => xScale(d.date));
     areaGenerator.y0(yScale(0));
     areaGenerator.y1(d => yScale(d[chart]));
-    const line = areaGenerator(data);
+    const area = areaGenerator(data);
 
-    return { line };
+    return { area };
   }
 
   setAxes = () => {
@@ -51,26 +51,40 @@ class AreaChart extends Component {
     d3.select(this.refs.yAxis).call(this.yAxis);
   };
 
-  initialiseOrUpdateChart = () => {};
+  initialiseOrUpdateChart = () => {
+    d3.select(this.refs.area)
+      .selectAll("path")
+      .transition()
+      .duration(1000)
+      .ease(d3.easeCubicInOut)
+      .attr("d", this.state.area)
+      .attr("fill", `${colors.$areafill}`)
+      .attr("stroke", `${colors.$stroke}`);
+  };
 
   componentDidMount() {
     this.setAxes();
+    this.initialiseOrUpdateChart();
   }
 
   componentDidUpdate() {
     this.setAxes();
+    this.initialiseOrUpdateChart();
   }
 
   render() {
     return (
       <StyledChartWrapper>
+        <div className="title">Sales</div>
+        <div className="total">
+          $413.79K
+          <span className="average">Average $68.96K</span>
+        </div>
         <svg width={width} height={height}>
-          <path
-            d={this.state.line}
-            fill={`${colors.$areafill}`}
-            stroke={`${colors.$stroke}`}
-            strokeWidth="2"
-          />
+          <g ref="area">
+            <path strokeWidth="2" />
+          </g>
+
           <g>
             <g
               ref="xAxis"

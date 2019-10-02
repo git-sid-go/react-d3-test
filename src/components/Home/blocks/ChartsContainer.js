@@ -13,7 +13,7 @@ import {
 const CHARTS = ["sales", "new_sales", "payments", "refunds"];
 
 function ChartsContainer() {
-  const [currentTab, setCurrentTab] = React.useState("daily");
+  const [currentTab, setCurrentTab] = React.useState("quarterly");
   const [data, setData] = React.useState({});
   React.useEffect(() => {
     setData({

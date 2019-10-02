@@ -4,7 +4,7 @@ import { StyledChartWrapper } from "../../../styled_components/StyledCharts";
 import colors from "../../../assets/js/colors";
 
 const width = 510;
-const height = 270;
+const height = 210;
 const margin = { top: 20, right: 5, bottom: 20, left: 35 };
 
 class BarChart extends Component {
@@ -84,14 +84,11 @@ class BarChart extends Component {
 
     d3.select(this.refs.line)
       .selectAll("path")
-      .data(this.state.line)
       .transition()
       .duration(1000)
       .ease(d3.easeCubicInOut)
       .attr("d", this.state.line)
-      .attr("fill", "none")
-      .attr("stroke", `${colors.$purpleLight}`)
-      .attr("stroke-width", 2);
+      .attr("stroke", `${colors.$purpleLight}`);
   };
 
   componentDidMount() {
@@ -108,6 +105,11 @@ class BarChart extends Component {
     const { data } = this.props;
     return (
       <StyledChartWrapper>
+        <div className="title">Sales</div>
+        <div className="total">
+          $413.79K
+          <span className="average">Average $68.96K</span>
+        </div>
         {data ? (
           <svg width={width} height={height}>
             <g ref="bars">
@@ -118,9 +120,7 @@ class BarChart extends Component {
 
             <g ref="line">
               <path
-                // d={this.state.line}
                 fill="none"
-                // stroke={colors.$purpleLight}
                 strokeWidth="2"
                 transform={`translate(${(width - width * 0.45) /
                   data.length /
