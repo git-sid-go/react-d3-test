@@ -5,6 +5,8 @@ import { StyledChartsContainer } from "../../../styled_components/StyledCharts";
 import { BtnTab, TabsContainer } from "../../../styled_components/StyledCommon";
 import { RANGE_CONFIG } from "../../../config/config";
 
+const CHARTS = ["sales", "new_sales", "payments", "refunds"];
+
 function ChartsContainer() {
   const [currentTab, setCurrentTab] = React.useState("daily");
   const [data, setData] = React.useState({});
@@ -74,10 +76,15 @@ function ChartsContainer() {
         </BtnTab>
       </TabsContainer>
       <StyledChartsContainer>
-        <AreaChart chart="sales" data={data.daily} />
-        <AreaChart chart="new_sales" data={data.daily} />
-        <AreaChart chart="payments" data={data.daily} />
-        <AreaChart chart="refunds" data={data.daily} />
+        {currentTab === "daily" ? (
+          <>
+            {CHARTS.map((chart, index) => (
+              <React.Fragment key={index}>
+                <AreaChart chart={chart} data={data.daily} />
+              </React.Fragment>
+            ))}
+          </>
+        ) : null}
       </StyledChartsContainer>
     </div>
   );

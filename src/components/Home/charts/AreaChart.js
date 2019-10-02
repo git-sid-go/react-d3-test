@@ -49,9 +49,17 @@ class AreaChart extends Component {
     return { line };
   }
 
-  componentDidUpdate() {
+  setAxes = () => {
     d3.select(this.refs.xAxis).call(this.xAxis);
     d3.select(this.refs.yAxis).call(this.yAxis);
+  };
+
+  componentDidMount() {
+    this.setAxes();
+  }
+
+  componentDidUpdate() {
+    this.setAxes();
   }
 
   render() {
