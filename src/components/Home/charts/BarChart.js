@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
 import { StyledChartWrapper } from "../../../styled_components/StyledCharts";
+import colors from "../../../assets/js/colors";
 
 const width = 510;
 const height = 270;
@@ -25,7 +26,9 @@ class BarChart extends Component {
     .axisLeft()
     .scale(this.state.yScale)
     .ticks(5)
-    .tickFormat(d => `${d}`);
+    .tickFormat(d => {
+      return d >= 1000 ? `${d / 1000}k` : `${d}`;
+    });
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!nextProps.data) return null; // data hasn't been loaded yet so do nothing
@@ -37,16 +40,16 @@ class BarChart extends Component {
     const valueMin = d3.min(data, d => d[chart]);
     const valueMax = d3.max(data, d => d[chart]);
     xScale.domain(timeDomain);
-    yScale.domain([valueMin - 200, valueMax]);
+    yScale.domain([valueMin, valueMax]);
 
     // calculate x and y for each rectangle
     const bars = data.map(d => {
       const y1 = yScale(d[chart]);
-      const y2 = yScale(valueMin - 200);
+      const y2 = yScale(valueMin);
       return {
         x: xScale(d.month),
-        y: y1,
-        height: y2 - y1,
+        y: y1 - height * 0.1,
+        height: y2 - y1 + height * 0.1,
         width: (width - width * 0.45) / data.length
         // fill: colors(colorScale(d.avg))
       };
@@ -79,7 +82,7 @@ class BarChart extends Component {
               y={d.y}
               width={d.width}
               height={d.height}
-              // fill={d.fill}
+              fill={`${colors.$barfill}`}
             />
           ))}
           <g>

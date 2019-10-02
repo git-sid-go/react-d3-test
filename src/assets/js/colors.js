@@ -6,6 +6,9 @@ const colors = {
   $purpleLight: `#352E63`,
   $primaryGreen: `#5AAE5D`,
   $primaryBorder: `#D3D2D5`,
+  $stroke: `#E0A36F`,
+  $areafill: `#F8E2CC`,
+  $barfill: `#F0CCA9`,
   $montserrat: `"Montserrat", sans-serif`
 };
 

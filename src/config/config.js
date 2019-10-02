@@ -34,5 +34,41 @@ export const RANGE_CONFIG = {
       min: 300,
       max: 950
     }
+  },
+  semi_annually: {
+    sales: {
+      min: 0,
+      max: 100000
+    },
+    new_sales: {
+      min: 0,
+      max: 10000
+    },
+    payments: {
+      min: 0,
+      max: 100000
+    },
+    refunds: {
+      min: 0,
+      max: 1000
+    }
+  },
+  annually: {
+    sales: {
+      min: 0,
+      max: 100000
+    },
+    new_sales: {
+      min: 0,
+      max: 50000
+    },
+    payments: {
+      min: 0,
+      max: 100000
+    },
+    refunds: {
+      min: 0,
+      max: 1000
+    }
   }
 };

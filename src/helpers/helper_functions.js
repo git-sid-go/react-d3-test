@@ -94,29 +94,31 @@ export const getSemiAnnualMockData = () => {
       sales:
         Math.floor(
           Math.random() *
-            (RANGE_CONFIG.daily.sales.max - RANGE_CONFIG.daily.sales.min + 1)
-        ) + RANGE_CONFIG.daily.sales.min,
+            (RANGE_CONFIG.semi_annually.sales.max -
+              RANGE_CONFIG.semi_annually.sales.min +
+              1)
+        ) + RANGE_CONFIG.semi_annually.sales.min,
       new_sales:
         Math.floor(
           Math.random() *
-            (RANGE_CONFIG.daily.new_sales.max -
-              RANGE_CONFIG.daily.new_sales.min +
+            (RANGE_CONFIG.semi_annually.new_sales.max -
+              RANGE_CONFIG.semi_annually.new_sales.min +
               1)
-        ) + RANGE_CONFIG.daily.new_sales.min,
+        ) + RANGE_CONFIG.semi_annually.new_sales.min,
       payments:
         Math.floor(
           Math.random() *
-            (RANGE_CONFIG.daily.payments.max -
-              RANGE_CONFIG.daily.payments.min +
+            (RANGE_CONFIG.semi_annually.payments.max -
+              RANGE_CONFIG.semi_annually.payments.min +
               1)
-        ) + RANGE_CONFIG.daily.payments.min,
+        ) + RANGE_CONFIG.semi_annually.payments.min,
       refunds:
         Math.floor(
           Math.random() *
-            (RANGE_CONFIG.daily.refunds.max -
-              RANGE_CONFIG.daily.refunds.min +
+            (RANGE_CONFIG.semi_annually.refunds.max -
+              RANGE_CONFIG.semi_annually.refunds.min +
               1)
-        ) + RANGE_CONFIG.daily.refunds.min
+        ) + RANGE_CONFIG.semi_annually.refunds.min
     });
   }
 
@@ -133,29 +135,31 @@ export const getAnnualMockData = () => {
       sales:
         Math.floor(
           Math.random() *
-            (RANGE_CONFIG.daily.sales.max - RANGE_CONFIG.daily.sales.min + 1)
-        ) + RANGE_CONFIG.daily.sales.min,
+            (RANGE_CONFIG.annually.sales.max -
+              RANGE_CONFIG.annually.sales.min +
+              1)
+        ) + RANGE_CONFIG.annually.sales.min,
       new_sales:
         Math.floor(
           Math.random() *
-            (RANGE_CONFIG.daily.new_sales.max -
-              RANGE_CONFIG.daily.new_sales.min +
+            (RANGE_CONFIG.annually.new_sales.max -
+              RANGE_CONFIG.annually.new_sales.min +
               1)
-        ) + RANGE_CONFIG.daily.new_sales.min,
+        ) + RANGE_CONFIG.annually.new_sales.min,
       payments:
         Math.floor(
           Math.random() *
-            (RANGE_CONFIG.daily.payments.max -
-              RANGE_CONFIG.daily.payments.min +
+            (RANGE_CONFIG.annually.payments.max -
+              RANGE_CONFIG.annually.payments.min +
               1)
-        ) + RANGE_CONFIG.daily.payments.min,
+        ) + RANGE_CONFIG.annually.payments.min,
       refunds:
         Math.floor(
           Math.random() *
-            (RANGE_CONFIG.daily.refunds.max -
-              RANGE_CONFIG.daily.refunds.min +
+            (RANGE_CONFIG.annually.refunds.max -
+              RANGE_CONFIG.annually.refunds.min +
               1)
-        ) + RANGE_CONFIG.daily.refunds.min
+        ) + RANGE_CONFIG.annually.refunds.min
     });
   }
 

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as d3 from "d3";
 import { StyledChartWrapper } from "../../../styled_components/StyledCharts";
+import colors from "../../../assets/js/colors";
 
 const width = 510;
 const height = 270;
@@ -64,8 +65,8 @@ class AreaChart extends Component {
         <svg width={width} height={height}>
           <path
             d={this.state.line}
-            fill={"#F8E2CC"}
-            stroke={"#E0A36F"}
+            fill={`${colors.$areafill}`}
+            stroke={`${colors.$stroke}`}
             strokeWidth="2"
           />
           <g>
