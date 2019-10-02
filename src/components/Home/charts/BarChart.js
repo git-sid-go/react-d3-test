@@ -9,14 +9,17 @@ const margin = { top: 20, right: 5, bottom: 20, left: 35 };
 class BarChart extends Component {
   state = {
     bars: [],
-    xScale: d3.scaleTime().range([margin.left, width - margin.right]),
+    xScale: d3
+      .scaleBand()
+      .range([margin.left, width - margin.right])
+      .padding(0.4),
     yScale: d3.scaleLinear().range([height - margin.bottom, margin.top])
   };
 
   xAxis = d3
     .axisBottom()
     .scale(this.state.xScale)
-    .tickFormat(d3.timeFormat("%b"));
+    .tickFormat(d => `${d}`);
 
   yAxis = d3
     .axisLeft()
@@ -30,20 +33,21 @@ class BarChart extends Component {
     const { xScale, yScale } = prevState;
 
     // data has changed, so recalculate scale domains
-    const timeDomain = d3.extent(data, d => d.date);
+    const timeDomain = data.map(d => d.month);
+    const valueMin = d3.min(data, d => d[chart]);
     const valueMax = d3.max(data, d => d[chart]);
-    const colorDomain = d3.extent(data, d => d.avg);
     xScale.domain(timeDomain);
-    yScale.domain([0, valueMax]);
+    yScale.domain([valueMin - 200, valueMax]);
 
     // calculate x and y for each rectangle
     const bars = data.map(d => {
       const y1 = yScale(d[chart]);
-      const y2 = yScale(0);
+      const y2 = yScale(valueMin - 200);
       return {
-        x: xScale(d.date),
+        x: xScale(d.month),
         y: y1,
-        height: y2 - y1
+        height: y2 - y1,
+        width: (width - width * 0.45) / data.length
         // fill: colors(colorScale(d.avg))
       };
     });
@@ -73,7 +77,7 @@ class BarChart extends Component {
               key={i}
               x={d.x}
               y={d.y}
-              width="2"
+              width={d.width}
               height={d.height}
               // fill={d.fill}
             />

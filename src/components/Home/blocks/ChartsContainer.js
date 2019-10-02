@@ -1,51 +1,26 @@
 import React from "react";
 import AreaChart from "../charts/AreaChart";
-import moment from "moment";
 import { StyledChartsContainer } from "../../../styled_components/StyledCharts";
 import { BtnTab, TabsContainer } from "../../../styled_components/StyledCommon";
-import { RANGE_CONFIG } from "../../../config/config";
 import BarChart from "../charts/BarChart";
+import {
+  getDailyMockData,
+  getQuarterlyMockData,
+  getSemiAnnualMockData,
+  getAnnualMockData
+} from "../../../helpers/helper_functions";
 
 const CHARTS = ["sales", "new_sales", "payments", "refunds"];
 
 function ChartsContainer() {
-  const [currentTab, setCurrentTab] = React.useState("daily");
+  const [currentTab, setCurrentTab] = React.useState("quarterly");
   const [data, setData] = React.useState({});
   React.useEffect(() => {
-    let daily = [];
-    for (var i = 1; i <= moment.duration(2, "months").asDays(); i++) {
-      daily.push({
-        date: moment().subtract(i + 1, "d"),
-        sales:
-          Math.floor(
-            Math.random() *
-              (RANGE_CONFIG.daily.sales.max - RANGE_CONFIG.daily.sales.min + 1)
-          ) + RANGE_CONFIG.daily.sales.min,
-        new_sales:
-          Math.floor(
-            Math.random() *
-              (RANGE_CONFIG.daily.new_sales.max -
-                RANGE_CONFIG.daily.new_sales.min +
-                1)
-          ) + RANGE_CONFIG.daily.new_sales.min,
-        payments:
-          Math.floor(
-            Math.random() *
-              (RANGE_CONFIG.daily.payments.max -
-                RANGE_CONFIG.daily.payments.min +
-                1)
-          ) + RANGE_CONFIG.daily.payments.min,
-        refunds:
-          Math.floor(
-            Math.random() *
-              (RANGE_CONFIG.daily.refunds.max -
-                RANGE_CONFIG.daily.refunds.min +
-                1)
-          ) + RANGE_CONFIG.daily.refunds.min
-      });
-    }
     setData({
-      daily
+      daily: getDailyMockData(),
+      quarterly: getQuarterlyMockData(),
+      semi_annually: getSemiAnnualMockData(),
+      annually: getAnnualMockData()
     });
   }, []);
   return (
@@ -58,20 +33,20 @@ function ChartsContainer() {
           Daily
         </BtnTab>
         <BtnTab
-          onClick={() => setCurrentTab("3 months")}
-          selected={currentTab == "3 months"}
+          onClick={() => setCurrentTab("quarterly")}
+          selected={currentTab == "quarterly"}
         >
           3 Months
         </BtnTab>
         <BtnTab
-          onClick={() => setCurrentTab("6 months")}
-          selected={currentTab == "6 months"}
+          onClick={() => setCurrentTab("semi_annually")}
+          selected={currentTab == "semi_annually"}
         >
           6 Months
         </BtnTab>
         <BtnTab
-          onClick={() => setCurrentTab("12 months")}
-          selected={currentTab == "12 months"}
+          onClick={() => setCurrentTab("annually")}
+          selected={currentTab == "annually"}
         >
           12 Months
         </BtnTab>
@@ -89,7 +64,7 @@ function ChartsContainer() {
           <>
             {CHARTS.map((chart, index) => (
               <React.Fragment key={index}>
-                <BarChart chart={chart} data={data.daily} />
+                <BarChart chart={chart} data={data[currentTab]} />
               </React.Fragment>
             ))}
           </>
