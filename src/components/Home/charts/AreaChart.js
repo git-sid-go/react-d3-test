@@ -51,6 +51,8 @@ class AreaChart extends Component {
     d3.select(this.refs.yAxis).call(this.yAxis);
   };
 
+  initialiseOrUpdateChart = () => {};
+
   componentDidMount() {
     this.setAxes();
   }

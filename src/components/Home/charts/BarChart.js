@@ -71,12 +71,37 @@ class BarChart extends Component {
     d3.select(this.refs.yAxis).call(this.yAxis);
   };
 
+  initialiseOrUpdateCharts = () => {
+    d3.select(this.refs.bars)
+      .selectAll("rect")
+      .data(this.state.bars)
+      .transition()
+      .duration(1000)
+      .ease(d3.easeCubicInOut)
+      .attr("x", d => d.x)
+      .attr("width", d => d.width)
+      .attr("fill", `${colors.$barfill}`);
+
+    d3.select(this.refs.line)
+      .selectAll("path")
+      .data(this.state.line)
+      .transition()
+      .duration(1000)
+      .ease(d3.easeCubicInOut)
+      .attr("d", this.state.line)
+      .attr("fill", "none")
+      .attr("stroke", `${colors.$purpleLight}`)
+      .attr("stroke-width", 2);
+  };
+
   componentDidMount() {
     this.setAxes();
+    this.initialiseOrUpdateCharts();
   }
 
   componentDidUpdate() {
     this.setAxes();
+    this.initialiseOrUpdateCharts();
   }
 
   render() {
@@ -85,25 +110,24 @@ class BarChart extends Component {
       <StyledChartWrapper>
         {data ? (
           <svg width={width} height={height}>
-            {this.state.bars.map((d, i) => (
-              <rect
-                key={i}
-                x={d.x}
-                y={d.y}
-                width={d.width}
-                height={d.height}
-                fill={`${colors.$barfill}`}
+            <g ref="bars">
+              {this.state.bars.map((d, i) => (
+                <rect key={i} y={d.y} height={d.height} />
+              ))}
+            </g>
+
+            <g ref="line">
+              <path
+                // d={this.state.line}
+                fill="none"
+                // stroke={colors.$purpleLight}
+                strokeWidth="2"
+                transform={`translate(${(width - width * 0.45) /
+                  data.length /
+                  2}, 0)`}
               />
-            ))}
-            <path
-              d={this.state.line}
-              fill="none"
-              stroke={colors.$purpleLight}
-              strokeWidth="2"
-              transform={`translate(${(width - width * 0.45) /
-                data.length /
-                2}, 0)`}
-            />
+            </g>
+
             <g>
               <g
                 ref="xAxis"

@@ -45,7 +45,7 @@ export const getDailyMockData = () => {
 
 export const getQuarterlyMockData = () => {
   let quarterly = [];
-  for (var i = 1; i <= mock_3_months_duration; i++) {
+  for (var i = mock_3_months_duration; i >= 1; i--) {
     quarterly.push({
       month: moment()
         .subtract(i, "months")
@@ -122,7 +122,7 @@ export const getQuarterlyMockData = () => {
 
 export const getSemiAnnualMockData = () => {
   let semi_annual = [];
-  for (var i = 1; i <= mock_6_months_duration; i++) {
+  for (var i = mock_6_months_duration; i >= 1; i--) {
     semi_annual.push({
       month: moment()
         .subtract(i, "months")
@@ -199,7 +199,7 @@ export const getSemiAnnualMockData = () => {
 
 export const getAnnualMockData = () => {
   let annual = [];
-  for (var i = 1; i <= mock_12_months_duration; i++) {
+  for (var i = mock_12_months_duration; i >= 1; i--) {
     annual.push({
       month: moment()
         .subtract(i, "months")
