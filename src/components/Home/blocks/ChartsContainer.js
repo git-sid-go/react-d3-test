@@ -4,6 +4,7 @@ import moment from "moment";
 import { StyledChartsContainer } from "../../../styled_components/StyledCharts";
 import { BtnTab, TabsContainer } from "../../../styled_components/StyledCommon";
 import { RANGE_CONFIG } from "../../../config/config";
+import BarChart from "../charts/BarChart";
 
 const CHARTS = ["sales", "new_sales", "payments", "refunds"];
 
@@ -84,7 +85,15 @@ function ChartsContainer() {
               </React.Fragment>
             ))}
           </>
-        ) : null}
+        ) : (
+          <>
+            {CHARTS.map((chart, index) => (
+              <React.Fragment key={index}>
+                <BarChart chart={chart} data={data.daily} />
+              </React.Fragment>
+            ))}
+          </>
+        )}
       </StyledChartsContainer>
     </div>
   );

@@ -24,10 +24,7 @@ class AreaChart extends Component {
     .axisLeft()
     .scale(this.state.yScale)
     .ticks(5)
-    .tickFormat((d, i) => {
-      console.log(d);
-      return `${d}`;
-    });
+    .tickFormat(d => `${d}`);
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!nextProps.data) return null; // data hasn't been loaded yet so do nothing
@@ -35,7 +32,6 @@ class AreaChart extends Component {
     const { xScale, yScale, areaGenerator } = prevState;
 
     // data has changed, so recalculate scale domains
-    console.log(data, data.length);
     const timeDomain = d3.extent(data, d => d.date);
     const valueMax = d3.max(data, d => d[chart]);
     xScale.domain(timeDomain);
