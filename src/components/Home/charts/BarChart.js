@@ -10,11 +10,13 @@ const margin = { top: 20, right: 5, bottom: 20, left: 35 };
 class BarChart extends Component {
   state = {
     bars: [],
+    line: null,
     xScale: d3
       .scaleBand()
       .range([margin.left, width - margin.right])
       .padding(0.4),
-    yScale: d3.scaleLinear().range([height - margin.bottom, margin.top])
+    yScale: d3.scaleLinear().range([height - margin.bottom, margin.top]),
+    lineGenerator: d3.line()
   };
 
   xAxis = d3
@@ -33,29 +35,35 @@ class BarChart extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!nextProps.data) return null; // data hasn't been loaded yet so do nothing
     const { data, chart } = nextProps;
-    const { xScale, yScale } = prevState;
+    const { xScale, yScale, lineGenerator } = prevState;
 
     // data has changed, so recalculate scale domains
     const timeDomain = data.map(d => d.month);
-    const valueMin = d3.min(data, d => d[chart]);
-    const valueMax = d3.max(data, d => d[chart]);
+    const valueMin = d3.min(data, d => d[chart].amount);
+    const valueMax = d3.max(data, d => d[chart].amount);
     xScale.domain(timeDomain);
     yScale.domain([valueMin, valueMax]);
 
     // calculate x and y for each rectangle
     const bars = data.map(d => {
-      const y1 = yScale(d[chart]);
+      const y1 = yScale(d[chart].amount);
       const y2 = yScale(valueMin);
       return {
         x: xScale(d.month),
         y: y1 - height * 0.1,
         height: y2 - y1 + height * 0.1,
         width: (width - width * 0.45) / data.length
-        // fill: colors(colorScale(d.avg))
       };
     });
 
-    return { bars };
+    lineGenerator.x(d => xScale(d.month));
+    lineGenerator.y(d =>
+      yScale(Math.floor(Math.random() * (valueMax - valueMin + 1)) + valueMin)
+    );
+
+    const line = lineGenerator(data);
+
+    return { line, bars };
   }
 
   setAxes = () => {
@@ -72,27 +80,39 @@ class BarChart extends Component {
   }
 
   render() {
+    const { data } = this.props;
     return (
       <StyledChartWrapper>
-        <svg width={width} height={height}>
-          {this.state.bars.map((d, i) => (
-            <rect
-              key={i}
-              x={d.x}
-              y={d.y}
-              width={d.width}
-              height={d.height}
-              fill={`${colors.$barfill}`}
+        {data ? (
+          <svg width={width} height={height}>
+            {this.state.bars.map((d, i) => (
+              <rect
+                key={i}
+                x={d.x}
+                y={d.y}
+                width={d.width}
+                height={d.height}
+                fill={`${colors.$barfill}`}
+              />
+            ))}
+            <path
+              d={this.state.line}
+              fill="none"
+              stroke={colors.$purpleLight}
+              strokeWidth="2"
+              transform={`translate(${(width - width * 0.45) /
+                data.length /
+                2}, 0)`}
             />
-          ))}
-          <g>
-            <g
-              ref="xAxis"
-              transform={`translate(0, ${height - margin.bottom})`}
-            />
-            <g ref="yAxis" transform={`translate(${margin.left}, 0)`} />
-          </g>
-        </svg>
+            <g>
+              <g
+                ref="xAxis"
+                transform={`translate(0, ${height - margin.bottom})`}
+              />
+              <g ref="yAxis" transform={`translate(${margin.left}, 0)`} />
+            </g>
+          </svg>
+        ) : null}
       </StyledChartWrapper>
     );
   }

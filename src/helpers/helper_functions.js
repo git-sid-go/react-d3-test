@@ -50,34 +50,70 @@ export const getQuarterlyMockData = () => {
       month: moment()
         .subtract(i, "months")
         .format("MMM"),
-      sales:
-        Math.floor(
-          Math.random() *
-            (RANGE_CONFIG.quarterly.sales.max -
-              RANGE_CONFIG.quarterly.sales.min +
-              1)
-        ) + RANGE_CONFIG.quarterly.sales.min,
-      new_sales:
-        Math.floor(
-          Math.random() *
-            (RANGE_CONFIG.quarterly.new_sales.max -
-              RANGE_CONFIG.quarterly.new_sales.min +
-              1)
-        ) + RANGE_CONFIG.quarterly.new_sales.min,
-      payments:
-        Math.floor(
-          Math.random() *
-            (RANGE_CONFIG.quarterly.payments.max -
-              RANGE_CONFIG.quarterly.payments.min +
-              1)
-        ) + RANGE_CONFIG.quarterly.payments.min,
-      refunds:
-        Math.floor(
-          Math.random() *
-            (RANGE_CONFIG.quarterly.refunds.max -
-              RANGE_CONFIG.quarterly.refunds.min +
-              1)
-        ) + RANGE_CONFIG.quarterly.refunds.min
+      sales: {
+        amount:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.quarterly.sales.max -
+                RANGE_CONFIG.quarterly.sales.min +
+                1)
+          ) + RANGE_CONFIG.quarterly.sales.min,
+        growth:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.quarterly.sales.max -
+                RANGE_CONFIG.quarterly.sales.min +
+                1)
+          ) + RANGE_CONFIG.quarterly.sales.min
+      },
+      new_sales: {
+        amount:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.quarterly.new_sales.max -
+                RANGE_CONFIG.quarterly.new_sales.min +
+                1)
+          ) + RANGE_CONFIG.quarterly.new_sales.min,
+        growth:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.quarterly.new_sales.max -
+                RANGE_CONFIG.quarterly.new_sales.min +
+                1)
+          ) + RANGE_CONFIG.quarterly.new_sales.min
+      },
+      payments: {
+        amount:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.quarterly.payments.max -
+                RANGE_CONFIG.quarterly.payments.min +
+                1)
+          ) + RANGE_CONFIG.quarterly.payments.min,
+        growth:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.quarterly.payments.max -
+                RANGE_CONFIG.quarterly.payments.min +
+                1)
+          ) + RANGE_CONFIG.quarterly.payments.min
+      },
+      refunds: {
+        amount:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.quarterly.refunds.max -
+                RANGE_CONFIG.quarterly.refunds.min +
+                1)
+          ) + RANGE_CONFIG.quarterly.refunds.min,
+        growth:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.quarterly.refunds.max -
+                RANGE_CONFIG.quarterly.refunds.min +
+                1)
+          ) + RANGE_CONFIG.quarterly.refunds.min
+      }
     });
   }
 
@@ -91,34 +127,70 @@ export const getSemiAnnualMockData = () => {
       month: moment()
         .subtract(i, "months")
         .format("MMM"),
-      sales:
-        Math.floor(
-          Math.random() *
-            (RANGE_CONFIG.semi_annually.sales.max -
-              RANGE_CONFIG.semi_annually.sales.min +
-              1)
-        ) + RANGE_CONFIG.semi_annually.sales.min,
-      new_sales:
-        Math.floor(
-          Math.random() *
-            (RANGE_CONFIG.semi_annually.new_sales.max -
-              RANGE_CONFIG.semi_annually.new_sales.min +
-              1)
-        ) + RANGE_CONFIG.semi_annually.new_sales.min,
-      payments:
-        Math.floor(
-          Math.random() *
-            (RANGE_CONFIG.semi_annually.payments.max -
-              RANGE_CONFIG.semi_annually.payments.min +
-              1)
-        ) + RANGE_CONFIG.semi_annually.payments.min,
-      refunds:
-        Math.floor(
-          Math.random() *
-            (RANGE_CONFIG.semi_annually.refunds.max -
-              RANGE_CONFIG.semi_annually.refunds.min +
-              1)
-        ) + RANGE_CONFIG.semi_annually.refunds.min
+      sales: {
+        amount:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.semi_annually.sales.max -
+                RANGE_CONFIG.semi_annually.sales.min +
+                1)
+          ) + RANGE_CONFIG.semi_annually.sales.min,
+        growth:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.semi_annually.sales.max -
+                RANGE_CONFIG.semi_annually.sales.min +
+                1)
+          ) + RANGE_CONFIG.semi_annually.sales.min
+      },
+      new_sales: {
+        amount:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.semi_annually.new_sales.max -
+                RANGE_CONFIG.semi_annually.new_sales.min +
+                1)
+          ) + RANGE_CONFIG.semi_annually.new_sales.min,
+        growth:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.semi_annually.new_sales.max -
+                RANGE_CONFIG.semi_annually.new_sales.min +
+                1)
+          ) + RANGE_CONFIG.semi_annually.new_sales.min
+      },
+      payments: {
+        amount:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.semi_annually.payments.max -
+                RANGE_CONFIG.semi_annually.payments.min +
+                1)
+          ) + RANGE_CONFIG.semi_annually.payments.min,
+        growth:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.semi_annually.payments.max -
+                RANGE_CONFIG.semi_annually.payments.min +
+                1)
+          ) + RANGE_CONFIG.semi_annually.payments.min
+      },
+      refunds: {
+        amount:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.semi_annually.refunds.max -
+                RANGE_CONFIG.semi_annually.refunds.min +
+                1)
+          ) + RANGE_CONFIG.semi_annually.refunds.min,
+        growth:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.semi_annually.refunds.max -
+                RANGE_CONFIG.semi_annually.refunds.min +
+                1)
+          ) + RANGE_CONFIG.semi_annually.refunds.min
+      }
     });
   }
 
@@ -132,34 +204,70 @@ export const getAnnualMockData = () => {
       month: moment()
         .subtract(i, "months")
         .format("MMM"),
-      sales:
-        Math.floor(
-          Math.random() *
-            (RANGE_CONFIG.annually.sales.max -
-              RANGE_CONFIG.annually.sales.min +
-              1)
-        ) + RANGE_CONFIG.annually.sales.min,
-      new_sales:
-        Math.floor(
-          Math.random() *
-            (RANGE_CONFIG.annually.new_sales.max -
-              RANGE_CONFIG.annually.new_sales.min +
-              1)
-        ) + RANGE_CONFIG.annually.new_sales.min,
-      payments:
-        Math.floor(
-          Math.random() *
-            (RANGE_CONFIG.annually.payments.max -
-              RANGE_CONFIG.annually.payments.min +
-              1)
-        ) + RANGE_CONFIG.annually.payments.min,
-      refunds:
-        Math.floor(
-          Math.random() *
-            (RANGE_CONFIG.annually.refunds.max -
-              RANGE_CONFIG.annually.refunds.min +
-              1)
-        ) + RANGE_CONFIG.annually.refunds.min
+      sales: {
+        amount:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.annually.sales.max -
+                RANGE_CONFIG.annually.sales.min +
+                1)
+          ) + RANGE_CONFIG.annually.sales.min,
+        growth:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.annually.sales.max -
+                RANGE_CONFIG.annually.sales.min +
+                1)
+          ) + RANGE_CONFIG.annually.sales.min
+      },
+      new_sales: {
+        amount:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.annually.new_sales.max -
+                RANGE_CONFIG.annually.new_sales.min +
+                1)
+          ) + RANGE_CONFIG.annually.new_sales.min,
+        growth:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.annually.new_sales.max -
+                RANGE_CONFIG.annually.new_sales.min +
+                1)
+          ) + RANGE_CONFIG.annually.new_sales.min
+      },
+      payments: {
+        amount:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.annually.payments.max -
+                RANGE_CONFIG.annually.payments.min +
+                1)
+          ) + RANGE_CONFIG.annually.payments.min,
+        growth:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.annually.payments.max -
+                RANGE_CONFIG.annually.payments.min +
+                1)
+          ) + RANGE_CONFIG.annually.payments.min
+      },
+      refunds: {
+        amount:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.annually.refunds.max -
+                RANGE_CONFIG.annually.refunds.min +
+                1)
+          ) + RANGE_CONFIG.annually.refunds.min,
+        growth:
+          Math.floor(
+            Math.random() *
+              (RANGE_CONFIG.annually.refunds.max -
+                RANGE_CONFIG.annually.refunds.min +
+                1)
+          ) + RANGE_CONFIG.annually.refunds.min
+      }
     });
   }
 
