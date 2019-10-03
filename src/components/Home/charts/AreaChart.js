@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import * as d3 from "d3";
 import { StyledChartWrapper } from "../../../styled_components/StyledCharts";
 import colors from "../../../assets/js/colors";
-import { formatAmount } from "../../../helpers/helper_functions";
+import {
+  formatAmount,
+  formatChartTitle
+} from "../../../helpers/helper_functions";
 
 const width = 510;
 const height = 210;
@@ -27,7 +30,7 @@ class AreaChart extends Component {
     .axisLeft()
     .scale(this.state.yScale)
     .ticks(5)
-    .tickFormat(d => `${d}`);
+    .tickFormat(d => (d >= 1000 ? `${d / 1000}k` : `${d}`));
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!nextProps.data) return null; // data hasn't been loaded yet so do nothing
@@ -85,11 +88,11 @@ class AreaChart extends Component {
       <StyledChartWrapper>
         {totalAmount && data && chart && (
           <>
-            <div className="title">{chart}</div>
+            <div className="title">{formatChartTitle(chart)}</div>
             <div className="total">
               {formatAmount(totalAmount)}
               <span className="average">
-                {formatAmount((totalAmount / data.length).toFixed(2))}
+                Average {formatAmount((totalAmount / data.length).toFixed(2))}
               </span>
             </div>
           </>

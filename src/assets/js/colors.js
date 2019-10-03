@@ -9,6 +9,7 @@ const colors = {
   $stroke: `#E0A36F`,
   $areafill: `#F8E2CC`,
   $barfill: `#F0CCA9`,
+  $barHighlight: `#EAAD72`,
   $montserrat: `"Montserrat", sans-serif`
 };
 

@@ -2,11 +2,28 @@ import React, { Component } from "react";
 import * as d3 from "d3";
 import { StyledChartWrapper } from "../../../styled_components/StyledCharts";
 import colors from "../../../assets/js/colors";
-import { formatAmount } from "../../../helpers/helper_functions";
+import {
+  formatAmount,
+  formatChartTitle
+} from "../../../helpers/helper_functions";
 
 const width = 510;
 const height = 210;
 const margin = { top: 20, right: 5, bottom: 20, left: 35 };
+
+const tooltip = d3
+  .select("body")
+  .append("div")
+  .style("position", "absolute")
+  .style("z-index", "10")
+  .style("color", "#FFF")
+  .style("padding", "5px 10px")
+  .style("border-radius", "4px")
+  .style("text-align", "center")
+  .style("visibility", "hidden")
+  .style("line-height", "1.4")
+  .style("background", "rgba(0,0,0,0.8)")
+  .html("<div />");
 
 class BarChart extends Component {
   state = {
@@ -30,9 +47,7 @@ class BarChart extends Component {
     .axisLeft()
     .scale(this.state.yScale)
     .ticks(5)
-    .tickFormat(d => {
-      return d >= 1000 ? `${d / 1000}k` : `${d}`;
-    });
+    .tickFormat(d => (d >= 1000 ? `${d / 1000}k` : `${d}`));
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!nextProps.data) return null; // data hasn't been loaded yet so do nothing
@@ -54,7 +69,9 @@ class BarChart extends Component {
         x: xScale(d.month),
         y: y1 - height * 0.1,
         height: y2 - y1 + height * 0.1,
-        width: (width - width * 0.45) / data.length
+        width: (width - width * 0.45) / data.length,
+        month: d.month,
+        value: formatAmount(d[chart].amount)
       };
     });
 
@@ -81,6 +98,21 @@ class BarChart extends Component {
     d3.select(this.refs.bars)
       .selectAll("rect")
       .data(this.state.bars)
+      .on("mouseover", function(d) {
+        d3.select(this).attr("fill", `${colors.$barHighlight}`);
+        console.log(d);
+        tooltip.html(`<div>${d.month}</div><b>${d.value}</b>`);
+        return tooltip.style("visibility", "visible");
+      })
+      .on("mousemove", function() {
+        return tooltip
+          .style("top", d3.event.pageY - 10 + "px")
+          .style("left", d3.event.pageX + 10 + "px");
+      })
+      .on("mouseout", function(d, i) {
+        d3.select(this).attr("fill", `${colors.$barfill}`);
+        return tooltip.style("visibility", "hidden");
+      })
       .transition()
       .duration(1000)
       .ease(d3.easeCubicInOut)
@@ -114,7 +146,7 @@ class BarChart extends Component {
       <StyledChartWrapper>
         {totalAmount && data && chart && (
           <>
-            <div className="title">Sales</div>
+            <div className="title">{formatChartTitle(chart)}</div>
             <div className="total">
               {formatAmount(totalAmount)}
               <span className="average">

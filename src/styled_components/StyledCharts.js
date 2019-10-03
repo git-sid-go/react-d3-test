@@ -23,6 +23,7 @@ export const StyledChartWrapper = styled(props => (
     font-weight: 600;
     color: ${colors.$textGrey};
     opacity: 0.8;
+    text-transform: capitalize;
   }
   .total {
     font-family: ${colors.$montserrat};
