@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as d3 from "d3";
 import { StyledChartWrapper } from "../../../styled_components/StyledCharts";
 import colors from "../../../assets/js/colors";
+import { formatAmount } from "../../../helpers/helper_functions";
 
 const width = 510;
 const height = 210;
@@ -16,7 +17,8 @@ class BarChart extends Component {
       .range([margin.left, width - margin.right])
       .padding(0.4),
     yScale: d3.scaleLinear().range([height - margin.bottom, margin.top]),
-    lineGenerator: d3.line()
+    lineGenerator: d3.line(),
+    totalAmount: ""
   };
 
   xAxis = d3
@@ -61,9 +63,13 @@ class BarChart extends Component {
       yScale(Math.floor(Math.random() * (valueMax - valueMin + 1)) + valueMin)
     );
 
+    const totalAmount = data.reduce(function(a, source) {
+      return a + source[chart].amount;
+    }, 0);
+
     const line = lineGenerator(data);
 
-    return { line, bars };
+    return { line, bars, totalAmount };
   }
 
   setAxes = () => {
@@ -102,14 +108,22 @@ class BarChart extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { totalAmount } = this.state;
+    const { data, chart } = this.props;
     return (
       <StyledChartWrapper>
-        <div className="title">Sales</div>
-        <div className="total">
-          $413.79K
-          <span className="average">Average $68.96K</span>
-        </div>
+        {totalAmount && data && chart && (
+          <>
+            <div className="title">Sales</div>
+            <div className="total">
+              {formatAmount(totalAmount)}
+              <span className="average">
+                Average {formatAmount((totalAmount / data.length).toFixed(2))}
+              </span>
+            </div>
+          </>
+        )}
+
         {data ? (
           <svg width={width} height={height}>
             <g ref="bars">

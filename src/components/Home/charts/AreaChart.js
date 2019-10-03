@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as d3 from "d3";
 import { StyledChartWrapper } from "../../../styled_components/StyledCharts";
 import colors from "../../../assets/js/colors";
+import { formatAmount } from "../../../helpers/helper_functions";
 
 const width = 510;
 const height = 210;
@@ -12,7 +13,8 @@ class AreaChart extends Component {
     area: null,
     xScale: d3.scaleTime().range([margin.left, width - margin.right]),
     yScale: d3.scaleLinear().range([height - margin.bottom, margin.top]),
-    areaGenerator: d3.area()
+    areaGenerator: d3.area(),
+    totalAmount: ""
   };
 
   xAxis = d3
@@ -32,6 +34,10 @@ class AreaChart extends Component {
     const { data, chart } = nextProps;
     const { xScale, yScale, areaGenerator } = prevState;
 
+    const totalAmount = data.reduce(function(a, source) {
+      return a + source[chart];
+    }, 0);
+
     // data has changed, so recalculate scale domains
     const timeDomain = d3.extent(data, d => d.date);
     const valueMax = d3.max(data, d => d[chart]);
@@ -43,7 +49,7 @@ class AreaChart extends Component {
     areaGenerator.y1(d => yScale(d[chart]));
     const area = areaGenerator(data);
 
-    return { area };
+    return { area, totalAmount };
   }
 
   setAxes = () => {
@@ -73,13 +79,21 @@ class AreaChart extends Component {
   }
 
   render() {
+    const { totalAmount } = this.state;
+    const { data, chart } = this.props;
     return (
       <StyledChartWrapper>
-        <div className="title">Sales</div>
-        <div className="total">
-          $413.79K
-          <span className="average">Average $68.96K</span>
-        </div>
+        {totalAmount && data && chart && (
+          <>
+            <div className="title">{chart}</div>
+            <div className="total">
+              {formatAmount(totalAmount)}
+              <span className="average">
+                {formatAmount((totalAmount / data.length).toFixed(2))}
+              </span>
+            </div>
+          </>
+        )}
         <svg width={width} height={height}>
           <g ref="area">
             <path strokeWidth="2" />
